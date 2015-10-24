@@ -20,3 +20,13 @@ require get_template_directory() . "/modules/include.php";
 ```
 
 Note: 'title' and 'editor' is default supported.
+
+## Add theme supports
+
+### Post thumbnails and Custom iamge size
+
+```php
+Paper_Initializer::instance()
+	->support_post_thumbnails()
+	->add_image_size( 'custom-size', 800, 600, true );
+```
