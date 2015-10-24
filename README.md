@@ -23,7 +23,7 @@ Note: 'title' and 'editor' is default supported.
 
 ## Add theme supports
 
-### Post thumbnails and Custom iamge size
+### Post thumbnails and Custom image size
 
 ```php
 Paper_Initializer::instance()
