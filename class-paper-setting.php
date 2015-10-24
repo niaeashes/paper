@@ -14,7 +14,7 @@ class Paper_Setting
 
 		$this->options['default'] = $default;
 
-		add_action( 'customize_register', [$this, 'apply'] );
+		add_action( 'customize_register', array( $this, 'apply' ) );
 	}
 
 	private $id;
@@ -31,24 +31,24 @@ class Paper_Setting
 
 		$options['title'] = Paper_Inflector::humanize( $id );
 
-		$this->section = [
+		$this->section = array(
 			'id' => $id,
 			'options' => $options
-		];
+		);
 
 		return $this;
 	}
 
 	public function with_color_control()
 	{
-		$this->control = [
+		$this->control = array(
 			'class' => 'WP_Customize_Color_Control',
-			'options' => [
+			'options' => array(
 				'label' => Paper_Inflector::humanize( $this->id ),
 				'section' => $this->section['id'],
 				'settings' => $this->id
-			]
-		];
+			)
+		);
 
 		return $this;
 	}

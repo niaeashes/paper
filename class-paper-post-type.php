@@ -7,7 +7,7 @@ class Paper_Post_Type
 		$this->post_type = $post_type;
 		$this->options = $options;
 		$this->supports = $options['supports'];
-		add_action( 'init', [$this, 'init'], 0 );
+		add_action( 'init', array( $this, 'init' ), 0 );
 	}
 
 	private $post_type;
@@ -16,17 +16,17 @@ class Paper_Post_Type
 
 	public function init()
 	{
-		$labels = [
+		$labels = array(
 			'singular_name' => self::singularize(ucfirst($this->post_type))
-		];
-		$options = array_merge([
+		);
+		$options = array_merge(array(
 			'label' => self::pluralize(ucfirst($this->post_type)),
 			'labels' => $labels,
-			'rewrite' => [ 'slug' => $this->post_type ],
+			'rewrite' => array( 'slug' => $this->post_type ),
 			'public' => true,
 			'has_archive' => true
-		], $this->options);
-		$options['supports'] = array_merge($this->supports, ['title', 'editor']);
+		), $this->options);
+		$options['supports'] = array_merge($this->supports, array( 'title', 'editor' ) );
 		register_post_type( $this->post_type, $options );
 	}
 

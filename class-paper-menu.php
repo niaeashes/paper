@@ -24,7 +24,7 @@ class Paper_Menu
 		}
 	}
 
-	static protected $menus = [];
+	static protected $menus = array();
 
 	static protected function add_instance( Paper_Menu $menu )
 	{
@@ -49,8 +49,8 @@ class Paper_Menu
 
 		$this->location = $location;
 
-		$this->options = array_merge([
-		], $options);
+		$this->options = array_merge(array(
+		), $options);
 		unset($this->options['theme_location']);
 
 		$this->description = $description;
@@ -97,10 +97,10 @@ class Paper_Menu
 			if ( ! array_key_exists( 'container_class', $this->options ) ) $this->options['container_class'] = '';
 			$this->options['container_class'] = $this->options['container_class'].' '.$this->location;
 
-			return wp_nav_menu(array_merge($this->options, [
+			return wp_nav_menu(array_merge($this->options, array(
 				'theme_location' => $this->location,
 				'echo' => false
-			]));
+			) ) );
 		} catch ( Exception $e ) {
 			return "";
 		}
