@@ -30,3 +30,17 @@ Paper_Initializer::instance()
 	->support_post_thumbnails()
 	->add_image_size( 'custom-size', 800, 600, true );
 ```
+
+## Add wordpress menu
+
+Define menu location.
+
+```php
+new Paper_Menu( 'theme-location' );
+```
+
+Show the menu in template file.
+
+```php
+<?php echo Paper_Menu::instance( 'theme-location' ) ?>
+```
