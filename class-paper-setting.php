@@ -2,14 +2,14 @@
 
 class Paper_Setting
 {
-	public function Paper_Setting( $id, $default, Array $options = [] )
+	public function Paper_Setting( $id, $default, Array $options = array() )
 	{
 		$this->id = $id;
 		$this->options = $options;
 
 		if ( ! is_array( $this->options ) )
 		{
-			$this->options = [];
+			$this->options = array();
 		}
 
 		$this->options['default'] = $default;
@@ -18,11 +18,11 @@ class Paper_Setting
 	}
 
 	private $id;
-	private $options = [];
+	private $options = array();
 	private $section = null;
 	private $control = null;
 
-	public function set_section( $id, Array $options = [])
+	public function set_section( $id, Array $options = array())
 	{
 		if ( $this->section != null )
 		{

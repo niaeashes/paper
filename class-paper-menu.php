@@ -43,9 +43,9 @@ class Paper_Menu
 	 * @param array  $options     Menu options is used as arguments of wp_nav_menu function.
 	 * @param string $description Menu location descriptive text.
 	 */
-	public function Paper_Menu( $location, $options = [], $description = 'no description' )
+	public function Paper_Menu( $location, $options = array(), $description = 'no description' )
 	{
-		add_action( 'after_setup_theme', [$this, 'register'] );
+		add_action( 'after_setup_theme', array( $this, 'register' ) );
 
 		$this->location = $location;
 
