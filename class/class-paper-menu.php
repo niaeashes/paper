@@ -24,6 +24,11 @@ class Paper_Menu
 		}
 	}
 
+	static public function exists( $location )
+	{
+		return array_key_exists( $location, self::$menus );
+	}
+
 	static protected $menus = array();
 
 	static protected function add_instance( Paper_Menu $menu )

@@ -2,10 +2,20 @@
 
 ## Install
 
+Include your theme.
+
 ```bash
 cd wp-content/themes/your_theme
 git clone git@github.com:niaeashes/paper.git modules
 echo 'require get_template_directory() . "/modules/include.php";' > functions.php
+```
+
+Include your wordpress.
+
+```bash
+cd wp-content
+git clone git@github.com:niaeashes/paper.git modules
+echo 'require WP_CONTENT_DIR . "/modules/include.php";' > functions.php
 ```
 
 ## Create custom post type
@@ -43,4 +53,31 @@ Show the menu in template file.
 
 ```php
 <?php echo Paper_Menu::instance( 'theme-location' ) ?>
+```
+
+Another methods.
+
+```php
+Paper_Menu::exists('theme-location'); // return true when 'theme-location' menu is defined, but false in not defined.
+Paper_Menu::instance('theme-location')->has_menu() // return true when menu is defined on administrator screen.
+```
+
+## Constant for Theme
+
+Define the constant in functions.php or another place.
+
+```php
+Paper::constant('copyright', "niaeashes");
+```
+
+Show the constant.
+
+```php
+&copy; <?php echo Paper::constant('copyright') ?>
+```
+
+Output.
+
+```html
+&copy; <span class="paper-constant">niaeashes</span>
 ```
