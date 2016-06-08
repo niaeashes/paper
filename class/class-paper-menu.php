@@ -5,7 +5,7 @@
  *
  * use in functions.php
  * <usage>
- * new Paper_Menu("primary", __( 'Primary Menu', 'theme-slug' ));
+ * Paper_Menu::define("primary", __( 'Primary Menu', 'theme-slug' ));
  * </usage>
  */
 class Paper_Menu
@@ -22,6 +22,11 @@ class Paper_Menu
 			}
 			return null;
 		}
+	}
+
+	static public function setup( $location, $options = array(), $description = 'no description'  )
+	{
+		return new static($location, $options, $description);
 	}
 
 	static public function exists( $location )
@@ -61,7 +66,7 @@ class Paper_Menu
 		$this->description = $description;
 
 		/* Add this instance to static collection. */
-		self::add_instance($this);
+		static::add_instance($this);
 	}
 
 	/**
