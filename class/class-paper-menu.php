@@ -41,6 +41,7 @@ class Paper_Menu
 		self::$menus[$menu->location()] = $menu;
 	}
 
+	private $_is_registered = false;
 	private $location;
 	private $description;
 	private $options;
@@ -78,6 +79,7 @@ class Paper_Menu
 	public function register()
 	{
 		register_nav_menu( $this->location, $this->description );
+		$this->_is_registered = true;
 	}
 
 	public function location()
@@ -85,9 +87,21 @@ class Paper_Menu
 		return $this->location;
 	}
 
-	public function description()
+	public function description($value = null)
 	{
-		return $this->description;
+		if ( $value === null ) {
+			return $this->description;
+		} else {
+			if ( $this->_is_registered ) {
+				if ( WP_DEBUG ) {
+					echo '<pre class="debug-message">';
+					echo 'menu '.$this->location.' is already registered.';
+					echo '</pre>';
+				}
+			}
+			$this->description = $value;
+			return $this;
+		}
 	}
 
 	public function has_menu()
@@ -107,11 +121,12 @@ class Paper_Menu
 			if ( ! array_key_exists( 'container_class', $this->options ) ) $this->options['container_class'] = '';
 			$this->options['container_class'] = $this->options['container_class'].' '.$this->location;
 
-			return wp_nav_menu(array_merge($this->options, array(
+			return (string) wp_nav_menu(array_merge($this->options, array(
 				'theme_location' => $this->location,
 				'echo' => false
 			) ) );
 		} catch ( Exception $e ) {
+			if ( WP_DEBUG ) { return var_export($e, true); }
 			return "";
 		}
 	}

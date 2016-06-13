@@ -59,7 +59,9 @@ Another methods.
 
 ```php
 Paper_Menu::exists('theme-location'); // return true when 'theme-location' menu is defined, but false in not defined.
-Paper_Menu::instance('theme-location')->has_menu() // return true when menu is defined on administrator screen.
+Paper_Menu::instance('theme-location')->has_menu(); // return true when menu is defined on administrator screen.
+Paper_Menu::instance('theme-location')
+  ->description("Write menu description for Administrator page.");
 ```
 
 ## Constant for Theme
