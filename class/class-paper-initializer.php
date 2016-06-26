@@ -34,6 +34,11 @@ class Paper_Initializer
 		return $this->theme_support( 'post-thumbnails' );
 	}
 
+	public function support_title_tag()
+	{
+		return $this->theme_support( 'title-tag' );
+	}
+
 	public function add_image_size( $name, $width, $height, $crop = false )
 	{
 		array_push( $this->_image_sizes, array( $name, $width, $height, $crop) );
