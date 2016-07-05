@@ -33,6 +33,15 @@ class Paper_Taxonomy
     return $this;
   }
 
+  /**
+   * @method_chain
+   */
+  public function hierarchical( $hierarchical )
+  {
+    $this->options['hierarchical'] = $hierarchical;
+    return $this;
+  }
+
 	/**
 	 * @wordpress_action init
 	 */
