@@ -6,16 +6,16 @@ Include your theme.
 
 ```bash
 cd wp-content/themes/your_theme
-git clone git@github.com:niaeashes/paper.git modules
-echo 'require get_template_directory() . "/modules/include.php";' > functions.php
+git clone https://github.com/niaeashes/paper.git modules
+echo 'require get_template_directory() . "/modules/include.php";' >> functions.php
 ```
 
 Include your wordpress.
 
 ```bash
 cd wp-content
-git clone git@github.com:niaeashes/paper.git modules
-echo 'require WP_CONTENT_DIR . "/modules/include.php";' > functions.php
+git clone https://github.com/niaeashes/paper.git modules
+echo 'require WP_CONTENT_DIR . "/modules/include.php";' >> themes/your_theme/functions.php
 ```
 
 ## Create custom post type
