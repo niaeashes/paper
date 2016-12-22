@@ -64,6 +64,14 @@ Paper_Menu::instance('theme-location')
   ->description("Write menu description for Administrator page.");
 ```
 
+## Google Map
+
+```php
+(new Paper_Map('chiyo'))
+  ->title('千代パピヨンデイサービス')
+  ->latlng(33.628112, 130.427415);
+```
+
 ## Constant for Theme
 
 Define the constant in functions.php or another place.

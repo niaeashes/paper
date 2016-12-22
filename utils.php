@@ -36,7 +36,7 @@ class Paper {
   {
     $attr = "";
     foreach ($attributes as $key => $value) {
-      $attr .= ' '.strip_tags($key).'="'.strip_tags($value).'"';
+      $attr .= ' '.htmlspecialchars($key).'="'.htmlspecialchars($value).'"';
     }
     $tag = strip_tags($tag);
     $content = strip_tags($content);

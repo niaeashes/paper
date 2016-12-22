@@ -8,6 +8,7 @@ require $dirname . '/class/class-paper-initializer.php';
 require $dirname . '/class/class-paper-map.php';
 require $dirname . '/class/class-paper-menu.php';
 require $dirname . '/class/class-paper-post-type.php';
+require $dirname . '/class/class-paper-script.php';
 require $dirname . '/class/class-paper-setting.php';
 require $dirname . '/class/class-paper-style.php';
 require $dirname . '/class/class-paper-taxonomy.php';

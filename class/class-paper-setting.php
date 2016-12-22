@@ -22,7 +22,7 @@ class Paper_Setting
 	private $section = null;
 	private $control = null;
 
-	public function set_section( $id, Array $options = array())
+	public function set_section( $id, Array $options = array() )
 	{
 		if ( $this->section != null )
 		{

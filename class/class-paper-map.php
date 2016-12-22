@@ -16,49 +16,93 @@ class Paper_Map
 		}
 	}
 
-	static public function setup( $id, $options = array() )
-	{
-		return new static($id, $options);
-	}
-
 	static public function exists( $id )
 	{
 		return array_key_exists( $id, self::$maps );
+	}
+
+	static public function init_script()
+	{
+?>
+<script>
+	( function( $ ) {
+		$('.paper-map').each(function(){
+	    var lat = parseFloat($(this).attr('data-lat'));
+	    var lng = parseFloat($(this).attr('data-lng'));
+			var zoom = parseInt($(this).attr('data-zoom')) || 17;
+	    var map = new google.maps.Map($(this)[0], {
+	      center: { lat: lat, lng: lng },
+	      zoom: zoom,
+	      disableDefaultUI: true,
+	      zoomControl: false,
+	      scaleControl: false,
+	      scrollwheel: false
+	    });
+
+			var markers = JSON.parse($(this).attr('data-markers'));
+			for ( var i in markers ) {
+				var data = markers[i];
+		    var marker = new google.maps.Marker({
+		      position: { lat: data.lat, lng: data.lng },
+		      map: map,
+		      title: data.title
+		    });
+				console.log(data);
+			}
+	  })
+	} )( jQuery )
+</script>
+<?php
 	}
 
 	static protected $maps = array();
 
 	static protected function add_instance( Paper_Map $map )
 	{
+		if ( count( self::$maps ) == 0 ) {
+			add_action('wp_footer', array( 'Paper_Map', 'init_script' ) );
+
+add_shortcode( 'bartag', 'bartag_func' );
+		}
 		self::$maps[$map->id()] = $map;
 	}
 
+	function short_code( $atts ) {
+		$a = shortcode_atts( array(
+				'foo' => 'something',
+				'bar' => 'something else',
+		), $atts );
+
+		return "foo = {$a['foo']}";
+	}
   private $id;
 	private $options;
-  private $title = '';
-  private $latlng = false;
   private $lat;
   private $lng;
+	private $zoom;
+	private $markers = array();
 
   public function Paper_Map( $id, $options = array() )
   {
-   $this->id = $id;
+		$this->id = $id;
 
-   $this->options = array_merge(array(
-   ), $options);
-   unset($this->options['theme_location']);
+  	$this->options = array_merge(array(
+  	), $options);
+  	unset($this->options['theme_location']);
 
-   /* Add this instance to static collection. */
-   static::add_instance($this);
+  	/* Add this instance to static collection. */
+  	static::add_instance($this);
   }
 
   public function __toString()
   {
-    $attributes = ['id' => 'map', 'data-title' => $this->title];
-    if ( $this->latlng ) {
-      $attributes['data-lat'] = $this->lat;
-      $attributes['data-lng'] = $this->lng;
-    }
+    $attributes = [
+			'class' => 'paper-map',
+			'data-lat' => $this->lat,
+			'data-lng' => $this->lng,
+			'data-zoom' => $this->zoom,
+			'data-markers' => $this->markers_json()
+		];
     return Paper::tag('div', '', $attributes);
   }
 
@@ -70,20 +114,57 @@ class Paper_Map
   /**
    * Support method chain.
    */
-  public function title($title)
-  {
-    $this->title = $title;
-    return $this;
-  }
-
-  /**
-   * Support method chain.
-   */
   public function latlng($lat, $lng)
   {
-    $this->latlng = true;
     $this->lat = $lat;
     $this->lng = $lng;
     return $this;
   }
+
+	public function zoom($zoom)
+	{
+		$this->zoom = $zoom;
+		return $this;
+	}
+
+	public function add_marker($title, $lat, $lng) {
+		$marker = new Paper_Map_Marker($this, $title, $lat, $lng);
+		array_push($this->markers, $marker);
+		return $marker;
+	}
+
+	private function markers_json()
+	{
+		$output = array();
+		foreach ( $this->markers as $marker ) {
+			array_push($output, $marker->to_object());
+		}
+		return json_encode($output);
+	}
+}
+
+class Paper_Map_Marker {
+
+	public function Paper_Map_Marker(Paper_Map $map, $title, $lat, $lng) {
+		$this->map = $map;
+		$this->title = $title;
+		$this->lat = $lat;
+		$this->lng = $lng;
+	}
+
+  private $title = '';
+  private $lat;
+  private $lng;
+
+	public function add_marker($title, $lat, $lng) {
+		return $this->map->add_marker($title, $lat, $lng);
+	}
+
+	public function to_object() {
+		return (object) array(
+			'title' => $this->title,
+			'lat' => $this->lat,
+			'lng' => $this->lng
+		);
+	}
 }
