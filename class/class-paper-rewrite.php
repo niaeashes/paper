@@ -28,6 +28,6 @@ class PaperRewrite
 
   public static function return_empty()
   {
-    return [];
+    return array();
   }
 }
