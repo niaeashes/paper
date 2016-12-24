@@ -32,7 +32,7 @@ class Paper {
     self::$settings[$name] = $value;
   }
 
-  static function tag($tag, $content, $attributes = [])
+  static function tag($tag, $content, Array $attributes = array() )
   {
     $attr = "";
     foreach ($attributes as $key => $value) {
