@@ -2,16 +2,16 @@
 
 class Paper {
 
-  private static $constants = [];
-  private static $settings = [];
+  private static $constants = array();
+  private static $settings = array();
 
   static function constant($name, $value = null)
   {
     if ( $value === null ) {
       if ( array_key_exists($name, self::$constants) ) {
-        return self::tag('span', self::$constants[$name], [ "class" => 'paper-constant']);
+        return self::tag('span', self::$constants[$name], array( "class" => 'paper-constant' ));
       } else {
-        return self::tag('span', $name, [ "class" => 'paper-constant paper-constant-error']);
+        return self::tag('span', $name, array( "class" => 'paper-constant paper-constant-error' ));
       }
     } else {
       self::$constants[$name] = $value;
