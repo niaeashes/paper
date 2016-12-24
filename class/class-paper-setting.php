@@ -2,12 +2,12 @@
 
 class Paper_Setting
 {
-	static private $data = [];
+	static private $data = array();
 
 	static public function instance( $id, $default, Array $options = array())
 	{
-		if ( array_key_exists( $id, $data ) ) {
-			return $data[$id];
+		if ( array_key_exists( $id, static::$data ) ) {
+			return static::$data[$id];
 		} else {
 			return new static( $id, $default, $options );
 		}
