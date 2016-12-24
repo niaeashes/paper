@@ -2,6 +2,17 @@
 
 class Paper_Setting
 {
+	static private $data = [];
+
+	static public function instance( $id, $default, Array $options = array())
+	{
+		if ( array_key_exists( $id, $data ) ) {
+			return $data[$id];
+		} else {
+			return new static( $id, $default, $options );
+		}
+	}
+
 	public function Paper_Setting( $id, $default, Array $options = array() )
 	{
 		$this->id = $id;
@@ -13,6 +24,8 @@ class Paper_Setting
 		}
 
 		$this->options['default'] = $default;
+
+		static::$data[$id] = $this;
 
 		add_action( 'customize_register', array( $this, 'apply' ) );
 	}

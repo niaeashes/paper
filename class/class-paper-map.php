@@ -2,17 +2,12 @@
 
 class Paper_Map
 {
-	static public function instance( $id )
+	static public function instance( $id, Array $options = array() )
 	{
 		if ( array_key_exists( $id, self::$maps ) ) {
 			return self::$maps[ $id ];
 		} else {
-			if ( WP_DEBUG ) {
-				echo '<pre class="debug-message">';
-				var_export( self::$maps[ $id ] );
-				echo '</pre>';
-			}
-			return null;
+			return new static( $id, $options );
 		}
 	}
 
@@ -82,7 +77,7 @@ add_shortcode( 'bartag', 'bartag_func' );
 	private $zoom;
 	private $markers = array();
 
-  public function Paper_Map( $id, $options = array() )
+  public function Paper_Map( $id, Array $options = array() )
   {
 		$this->id = $id;
 
