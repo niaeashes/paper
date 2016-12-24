@@ -4,9 +4,9 @@ class Paper_Taxonomy
 {
   private $name = "";
   private $object_type = "";
-  private $options = [];
+  private $options = array();
 
-  public function Paper_Taxonomy( $name, $object_type = 'page', $options = [] )
+  public function Paper_Taxonomy( $name, $object_type = 'page', $options = array() )
   {
 		add_action( 'init', array( $this, 'wp_init' ) );
 
