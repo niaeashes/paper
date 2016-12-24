@@ -4,7 +4,7 @@ class Paper_Script
 {
   private $name = "";
   private $path = "";
-  private $deps = [];
+  private $deps = array();
 
   public function Paper_Script( $name, $path, array $deps = array(), $ver = false, $in_footer = false )
   {

@@ -4,9 +4,9 @@ class Paper_Style
 {
   private $name = "";
   private $path = "";
-  private $options = [];
+  private $options = array();
 
-  public function Paper_Style( $name, $path, $options = [] )
+  public function Paper_Style( $name, $path, Array $options = array() )
   {
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
