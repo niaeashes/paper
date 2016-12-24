@@ -91,13 +91,13 @@ add_shortcode( 'bartag', 'bartag_func' );
 
   public function __toString()
   {
-    $attributes = [
+    $attributes = array(
 			'class' => 'paper-map',
 			'data-lat' => $this->lat,
 			'data-lng' => $this->lng,
 			'data-zoom' => $this->zoom,
 			'data-markers' => $this->markers_json()
-		];
+		);
     return Paper::tag('div', '', $attributes);
   }
 
