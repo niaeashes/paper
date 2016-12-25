@@ -56,20 +56,33 @@ class Paper_Map
 	{
 		if ( count( self::$maps ) == 0 ) {
 			add_action('wp_footer', array( 'Paper_Map', 'init_script' ) );
-
-add_shortcode( 'bartag', 'bartag_func' );
+			add_shortcode('paper-map', array('Paper_Map', 'short_code'));
 		}
 		self::$maps[$map->id()] = $map;
 	}
 
-	function short_code( $atts ) {
+	static public function short_code( $atts )
+	{
 		$a = shortcode_atts( array(
-				'foo' => 'something',
-				'bar' => 'something else',
+			'id' => ''
 		), $atts );
 
-		return "foo = {$a['foo']}";
+		$id = $a['id'];
+
+		if ( ! array_key_exists( $id, static::$maps ) ) {
+			return;
+		}
+
+		$map = static::$maps[$id];
+
+		echo '<div class="paper-map-container">'.$map.'</div>';
 	}
+
+	static public function enable_short_code()
+	{
+		//add_shortcode('paper-map', array('Paper_Map', 'short_code'));
+	}
+
   private $id;
 	private $options;
   private $lat;
