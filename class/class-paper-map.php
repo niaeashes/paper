@@ -42,7 +42,6 @@ class Paper_Map
 		      map: map,
 		      title: data.title
 		    });
-				console.log(data);
 			}
 	  })
 	} )( jQuery )
@@ -75,7 +74,7 @@ class Paper_Map
 
 		$map = static::$maps[$id];
 
-		echo '<div class="paper-map-container">'.$map.'</div>';
+		return '<div class="paper-map-container">'.$map.'</div>';
 	}
 
 	static public function enable_short_code()
