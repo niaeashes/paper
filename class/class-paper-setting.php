@@ -66,6 +66,25 @@ class Paper_Setting
 		return $this;
 	}
 
+	public function with_string_control()
+	{
+		$section = '';
+		if ( is_array($this->section) && array_key_exists( 'id', $this->section ) ) {
+			$section = $this->section['id'];
+		}
+		if ( array_key_exists( 'section', $this->options ) ) {
+			$section = $this->options['section'];
+		}
+
+		$this->control = array(
+			'label' => Paper_Inflector::humanize( $this->id ),
+			'type' => 'text',
+			'section' => $section
+		);
+
+		return $this;
+	}
+
 	public function apply()
 	{
 		global $wp_customize;
@@ -79,8 +98,12 @@ class Paper_Setting
 
 		if ( $this->control != null )
 		{
-			$control_class = $this->control['class'];
-			$wp_customize->add_control( new $control_class( $wp_customize, $this->id, $this->control['options'] ) );
+			if ( array_key_exists('class', $this->control) ) {
+				$control_class = $this->control['class'];
+				$wp_customize->add_control( new $control_class( $wp_customize, $this->id, $this->control['options'] ) );
+			} else {
+				$wp_customize->add_control( $this->id, $this->control );
+			}
 		}
 	}
 }
