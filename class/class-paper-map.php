@@ -106,7 +106,7 @@ class Paper_Map
 			'class' => 'paper-map',
 			'data-lat' => $this->lat,
 			'data-lng' => $this->lng,
-			'data-options' => $this->omap_attributes_json(),
+			'data-options' => $this->map_attributes_json(),
 			'data-markers' => $this->markers_json()
 		);
     return Paper::tag('div', '', $attributes);
