@@ -24,16 +24,9 @@ class Paper_Map
 		$('.paper-map').each(function(){
 	    var lat = parseFloat($(this).attr('data-lat'));
 	    var lng = parseFloat($(this).attr('data-lng'));
-			var zoom = parseInt($(this).attr('data-zoom')) || 17;
-	    var map = new google.maps.Map($(this)[0], {
-	      center: { lat: lat, lng: lng },
-	      zoom: zoom,
-	      disableDefaultUI: true,
-	      zoomControl: false,
-	      scaleControl: false,
-	      scrollwheel: false
-	    });
-
+			var options = JSON.parse($(this).attr('data-options'));
+			options.center = { lat: lat, lng: lng }
+	    var map = new google.maps.Map($(this)[0], options);
 			var markers = JSON.parse($(this).attr('data-markers'));
 			for ( var i in markers ) {
 				var data = markers[i];
@@ -86,7 +79,13 @@ class Paper_Map
 	private $options;
   private $lat;
   private $lng;
-	private $zoom;
+	private $map_attributes = array(
+		'zoom' => 17,
+		'disableDefaultUI' => true,
+		'zoomControl' => false,
+		'scaleControl' => false,
+		'scrollwheel' => false
+	);
 	private $markers = array();
 
   public function Paper_Map( $id, Array $options = array() )
@@ -107,7 +106,7 @@ class Paper_Map
 			'class' => 'paper-map',
 			'data-lat' => $this->lat,
 			'data-lng' => $this->lng,
-			'data-zoom' => $this->zoom,
+			'data-options' => $this->omap_attributes_json(),
 			'data-markers' => $this->markers_json()
 		);
     return Paper::tag('div', '', $attributes);
@@ -130,7 +129,12 @@ class Paper_Map
 
 	public function zoom($zoom)
 	{
-		$this->zoom = $zoom;
+		return $this->set_attribute('zoom', $zoom);
+	}
+
+	public function set_attribute($name, $value)
+	{
+		$this->map_attributes[$name] = $value;
 		return $this;
 	}
 
@@ -138,6 +142,11 @@ class Paper_Map
 		$marker = new Paper_Map_Marker($this, $title, $lat, $lng);
 		array_push($this->markers, $marker);
 		return $marker;
+	}
+
+	private function map_attributes_json()
+	{
+		return json_encode($this->map_attributes);
 	}
 
 	private function markers_json()
